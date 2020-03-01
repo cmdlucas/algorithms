@@ -103,13 +103,13 @@ public class AhoCorasick {
          * @param node - any Node in the Trie
          */
         private void setNodeSuffix(Node node) {
-            // handle level 0 && level 1 nodes
+            // handle nodes at level 0 && level 1
             if(node == root || node.parent == root) {
                 node.suffixConnection = 0;
                 return;
             }
 
-            // handle level 2 and above nodes
+            // handle nodes at level 2 and above
             Node parent = node.parent;
 
             while(parent != root) {
