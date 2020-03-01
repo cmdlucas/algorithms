@@ -47,15 +47,20 @@ public class AhoCorasick {
                     currNode.children = new HashMap<>();
                 }
 
+                Node childNode;
+
                 if(currNode.children.get(c) == null) {
-                    Node childNode = new Node();
+                    childNode = new Node();
                     childNode.charValue = c;
                     childNode.parent = currNode;
                     childNode.globalKeyWordIndex = ++size;
-                    if(i + 1 == keyword.length()) childNode.word = keyword;
                     currNode.children.put(c, childNode);
                     nodeIndexTable.add(childNode);
+                } else {
+                    childNode = currNode.children.get(c);
                 }
+
+                if(i + 1 == keyword.length()) childNode.word = keyword;
 
                 currNode = currNode.children.get(c);
             }
