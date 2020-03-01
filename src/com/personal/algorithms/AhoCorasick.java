@@ -118,9 +118,9 @@ public class AhoCorasick {
 
                 // does any of the children of the resulting node of the
                 // parent's suffix connection contain our node's character
-                Node parentConnection = nodeIndexTable.get(parent.suffixConnection).children.get(node.charValue);
-                if(parentConnection != null) {
-                    node.suffixConnection = parentConnection.globalKeyWordIndex;
+                Map<Character, Node> parentConnectionChildren = nodeIndexTable.get(parent.suffixConnection).children;
+                if(parentConnectionChildren != null && parentConnectionChildren.get(node.charValue) != null) {
+                    node.suffixConnection = parentConnectionChildren.get(node.charValue).globalKeyWordIndex;
                     break;
                 }
 
