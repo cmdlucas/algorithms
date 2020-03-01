@@ -2,6 +2,10 @@ package com.personal.algorithms;
 
 import java.util.Arrays;
 
+/**
+ *
+ * @author Caleb I. Lucas
+ */
 public class KMPMatch {
     public static void main(String[] args) {
         System.out.println(matches("abxabcabcaby", "abcaby"));
