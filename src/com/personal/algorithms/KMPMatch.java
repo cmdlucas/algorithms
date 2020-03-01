@@ -3,6 +3,7 @@ package com.personal.algorithms;
 import java.util.Arrays;
 
 /**
+ * Knuth-Morris-Pratt substring search algorithm
  *
  * @author Caleb I. Lucas
  */
