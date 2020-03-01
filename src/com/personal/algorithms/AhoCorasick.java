@@ -6,6 +6,8 @@ import java.util.*;
  * Although non-tested across widely varying inputs, this code
  * serves as an implementation of the Aho-Corasick algorithm
  * See the paper: http://cr.yp.to/bib/1975/aho.pdf
+ *
+ * @author Caleb I. Lucas
  */
 public class AhoCorasick {
     private Trie trie;
