@@ -176,6 +176,7 @@ public class AhoCorasick {
         trie.print(trie.root);
     }
 
+    // Driver Function
     public static void main(String[] args) {
         AhoCorasick ahoCorasick = new AhoCorasick("ushers");
         ahoCorasick.findValidKeywords(new String[]{"he", "she", "his", "hers"});

@@ -8,10 +8,6 @@ import java.util.Arrays;
  * @author Caleb I. Lucas
  */
 public class KMPMatch {
-    public static void main(String[] args) {
-        System.out.println(matches("abxabcabcaby", "abcaby"));
-        System.out.println(matches("awesomeness", "some"));
-    }
 
     private static boolean matches(String S, String P) {
         if(P.length() > S.length()) return false;
@@ -75,5 +71,11 @@ public class KMPMatch {
         }
 
         return f;
+    }
+
+    // Driver Function
+    public static void main(String[] args) {
+        System.out.println(matches("abxabcabcaby", "abcaby"));
+        System.out.println(matches("awesomeness", "some"));
     }
 }
