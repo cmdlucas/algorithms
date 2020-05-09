@@ -12,15 +12,15 @@ import java.util.Queue;
  * @author Caleb I. Lucas
  */
 public class Dijkstra {
-    public static void main(String[] args) {
-        int[][] g = {
-                {-1, 3, 2},
-                {2, -1, 0},
-                {-1, 0, -1}
-        };
-        int[] res = graphDistances(g, 0);
 
-        System.out.println(Arrays.toString(res));
+    public static class Vertex {
+        int value;
+        int distanceFromSource;
+
+        public Vertex(int value, int distanceFromSource) {
+            this.value = value;
+            this.distanceFromSource = distanceFromSource;
+        }
     }
 
     private static int[] graphDistances(int[][] g, int s) {
@@ -51,6 +51,7 @@ public class Dijkstra {
                 if(adjVertices[i] != -1) {
                     // since this is a candidate vertex, store the smallest value seen thus far
                     res[i] = Math.min(res[i], vertex.distanceFromSource + adjVertices[i]);
+                    // prevent cycles
                     if(!visited[i]) {
                         nextMinVertex.add(new Vertex(i, res[i]));
                     }
@@ -61,14 +62,16 @@ public class Dijkstra {
         return Arrays.stream(res).map(r -> r == Integer.MAX_VALUE ? -1 : r).toArray();
     }
 
-    public static class Vertex {
-        int value;
-        int distanceFromSource;
+    // Driver Function
+    public static void main(String[] args) {
+        int[][] g = {
+                {-1, 3, 2},
+                {2, -1, 0},
+                {-1, 0, -1}
+        };
+        int[] res = graphDistances(g, 0);
 
-        public Vertex(int value, int distanceFromSource) {
-            this.value = value;
-            this.distanceFromSource = distanceFromSource;
-        }
+        System.out.println(Arrays.toString(res));
     }
 
 }

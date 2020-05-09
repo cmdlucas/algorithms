@@ -16,7 +16,7 @@ import java.util.Queue;
  */
 public class ConnectedComponentsLabelling {
 
-    // 4-connected neighborhood (horizontal and vertical; non-diagonal connnection)
+    // 4-connected neighborhood (horizontal and vertical; non-diagonal connection)
     private static int[] dirX = {0, -1, 0, 1};
     private static int[] dirY = {-1, 0, 1, 0};
 
@@ -38,7 +38,7 @@ public class ConnectedComponentsLabelling {
                         A[vertex[0]][vertex[1]] = '0';
 
                         // Go through the neighbours of this vertex and
-                        // add the to the queue of vertices to be visited
+                        // add them to the queue of vertices to be visited
                         for(int k = 0; k < 4; k++) {
                             int nY = vertex[0] + dirY[k];
                             int nX = vertex[1] + dirX[k];
