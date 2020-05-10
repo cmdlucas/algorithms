@@ -30,14 +30,13 @@ public class Prim {
         // tell us which vertex has been visited
         boolean[] visited = new boolean[G.length];
 
-        // This helps to construct a Forest rather than a single tree
+        // This loop helps to construct a forest rather than a single tree
         // i.e we're assured that disconnected components will be visited
         for(int i = 0; i < G.length; i++) {
             if(!visited[i]) {
                 // store the vertices for selection in order of the closest parents
                 Queue<Vertex> nextVertices = new PriorityQueue<>(Comparator.comparingInt(v -> v.distanceFromParent));
                 nextVertices.add(new Vertex(i, i, 0));
-                parents[i] = 0;
 
                 while(nextVertices.peek() != null) {
                     Vertex vertex = nextVertices.poll();
