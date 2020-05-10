@@ -12,23 +12,23 @@ import java.util.*;
 public class AhoCorasick {
     private Trie trie;
 
-    private class Node {
+    private static class Node {
         Node parent;
         Map<Character, Node> children;
         char charValue;
-        int globalKeyWordIndex;
+        int indexInTable;
         int suffixConnection;
         String word;
     }
 
-    private class Trie {
-        final Node root;
+    private static class Trie {
         int size = 0;
-        List<Node> nodeIndexTable;
+        final Node root;
+        final List<Node> nodeIndexTable;
 
-        private Trie() {
+        Trie() {
             root = new Node();
-            root.globalKeyWordIndex = size;
+            root.indexInTable = size;
             nodeIndexTable = new ArrayList<>();
             nodeIndexTable.add(root);
         }
@@ -53,7 +53,7 @@ public class AhoCorasick {
                     childNode = new Node();
                     childNode.charValue = c;
                     childNode.parent = currNode;
-                    childNode.globalKeyWordIndex = ++size;
+                    childNode.indexInTable = ++size;
                     currNode.children.put(c, childNode);
                     nodeIndexTable.add(childNode);
                 } else {
@@ -62,27 +62,12 @@ public class AhoCorasick {
 
                 if(i + 1 == keyword.length()) childNode.word = keyword;
 
-                currNode = currNode.children.get(c);
+                currNode = childNode;
             }
         }
 
         /**
-         * Print all the nodes downwards of the Trie starting from the specified root
-         * @param root - any random Node signifying the beginning of the tree
-         */
-        private void print(Node root) {
-            if(root.children != null) {
-
-                System.out.println(root.children.keySet());
-
-                for (Map.Entry child : root.children.entrySet()) {
-                    print((Node) child.getValue());
-                }
-            }
-        }
-
-        /**
-         * Build all the node's suffix connections using BFS and failure function (see published paper.)
+         * Build all the node's suffix connections using BFS and failure function (see published paper)
          */
         private void buildSuffixConnection() {
             Queue<Node> nodeQueue = new LinkedList<>();
@@ -94,12 +79,9 @@ public class AhoCorasick {
                 setNodeSuffix(node);
 
                 if(node.children != null) {
-                    for (Map.Entry child : node.children.entrySet()) {
-                        nodeQueue.add((Node) child.getValue());
-                    }
+                    node.children.forEach((key, value) -> nodeQueue.add(value));
                 }
             }
-
         }
 
         /**
@@ -125,7 +107,7 @@ public class AhoCorasick {
                 // parent's suffix connection contain our node's character
                 Map<Character, Node> parentConnectionChildren = nodeIndexTable.get(parent.suffixConnection).children;
                 if(parentConnectionChildren != null && parentConnectionChildren.get(node.charValue) != null) {
-                    node.suffixConnection = parentConnectionChildren.get(node.charValue).globalKeyWordIndex;
+                    node.suffixConnection = parentConnectionChildren.get(node.charValue).indexInTable;
                     break;
                 }
 
@@ -134,6 +116,19 @@ public class AhoCorasick {
             }
 
             if(parent == root) node.suffixConnection = 0;
+        }
+
+        /**
+         * Print all the nodes downwards of the Trie starting from the specified root
+         * @param root - any random Node signifying the beginning of the tree
+         */
+        private void print(Node root) {
+            if(root.children != null) {
+
+                System.out.println(root.children.keySet());
+
+                root.children.forEach((key, value) -> print(value));
+            }
         }
     }
 
